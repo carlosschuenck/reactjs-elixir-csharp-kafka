@@ -1,0 +1,32 @@
+version: "3.7"
+
+services:
+  zookeeper:
+    image: wurstmeister/zookeeper
+    container_name: zookeeper
+    ports: 
+      - "2181:2181"
+  kafka:
+    image: wurstmeister/kafka
+    container_name: kafka
+    ports:
+      - '9092:9092'
+    environment:
+      KAFKA_ADVERTISED_HOST_NAME: localhost
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_CREATE_TOPICS: "task_manager_topic"
+  postgres-task:
+    image: postgres:11.8
+    container_name: postgres-db-task
+    ports:
+      -  5432:5432
+    environment:
+      POSTGRES_PASSWORD: postgres
+  postgres-user:
+    image: postgres:11.8
+    container_name: postgres-db-user
+    ports:
+      -  5433:5432
+    environment:
+      POSTGRES_PASSWORD: postgres
+
