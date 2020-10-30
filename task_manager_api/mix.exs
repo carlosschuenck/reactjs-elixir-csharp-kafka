@@ -20,7 +20,7 @@ defmodule TaskManagerApi.MixProject do
   def application do
     [
       mod: {TaskManagerApi.Application, []},
-      extra_applications: [:logger, :runtime_tools, :kaffe]
+      extra_applications: [:logger, :runtime_tools]
     ]
   end
 
@@ -33,8 +33,6 @@ defmodule TaskManagerApi.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
-      {:crc32cer, "~> 0.1.10", override: true, manager: :rebar3},
-      {:snappyer, "~> 1.2.8", override: true, manager: :rebar},
       {:phoenix, "~> 1.5.4"},
       {:phoenix_ecto, "~> 4.1"},
       {:ecto_sql, "~> 3.4"},
@@ -46,7 +44,7 @@ defmodule TaskManagerApi.MixProject do
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
       {:credo, "~> 1.2", only: [:dev, :test], runtime: false},
-      {:kaffe, "~> 1.0"}
+      {:rabbit, "~> 0.10"},
     ]
   end
 

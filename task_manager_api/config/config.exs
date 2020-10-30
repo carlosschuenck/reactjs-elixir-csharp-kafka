@@ -26,16 +26,6 @@ config :logger, :console,
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
 
-config :kaffe,
-  consumer: [
-    endpoints: [localhost: 9092],
-    topics: ["task_manager_topic"],
-    consumer_group: "task_manager_group",
-    message_handler: TaskManagerApi.MessageProcessor,
-    offset_reset_policy: :reset_to_latest,
-    max_bytes: 500_000,
-    worker_allocation_strategy: :worker_per_topic_partition,
-  ]
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env()}.exs"

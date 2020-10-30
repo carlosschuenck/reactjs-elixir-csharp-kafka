@@ -4,6 +4,7 @@ defmodule TaskManagerApi.Application do
   @moduledoc false
 
   use Application
+  alias TaskManagerApi.Module.RabbitMQ.{RabbitMQConnection, RabbitMQConsumerSupervisor}
 
   def start(_type, _args) do
     children = [
@@ -15,11 +16,8 @@ defmodule TaskManagerApi.Application do
       {Phoenix.PubSub, name: TaskManagerApi.PubSub},
       # Start the Endpoint (http/https)
       TaskManagerApiWeb.Endpoint,
-      %{
-        id: Kaffe.GroupMemberSupervisor,
-        start: {Kaffe.GroupMemberSupervisor, :start_link, []},
-        type: :supervisor
-      }
+      RabbitMQConnection,
+      RabbitMQConsumerSupervisor
       # Start a worker by calling: TaskManagerApi.Worker.start_link(arg)
       # {TaskManagerApi.Worker, arg}
     ]
